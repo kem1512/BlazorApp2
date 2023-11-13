@@ -1,0 +1,99 @@
+﻿@page "/admin/role"
+@inject RoleService RoleService
+@inject SweetAlertService Swal;
+@attribute [Authorize(Roles = "Admin", Policy = "CanViewRole")]
+
+<EditForm Model="Role" OnSubmit="CreateOrUpdate">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="row g-3">
+        <div class="col-12">
+            <table class="table table-bordered align-middle text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Role Claims</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Roles != null)
+                    {
+                        @if (Roles.Count <= 0)
+                        {
+                            <tr>
+                                <td colspan="2">Empty</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var x in Roles.Select((v, i) => (v, i)))
+                            {
+                                <tr>
+                                    <th>@((currentPage - 1) * pageSize + x.i + 1)</th>
+                                    <td>@x.v.Name</td>
+                                    <td>
+                                        @if (x.v.RoleClaims != null)
+                                        {
+                                            <div class="flex-column g-3">
+                                                @foreach (var y in x.v.RoleClaims)
+                                                {
+                                                    <span>@y.ClaimType - @y.ClaimValue</span>
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span>Empty</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" @onclick="() => { Role = x.v; _isEdit = true; }">Update</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" @onclick="() => Remove(x.v)">Remove</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2">Loading...</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-12">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    @if(totalPages > 1)
+                    {
+                        @foreach (var x in Enumerable.Range(1, totalPages))
+                        {
+                            <li class="page-item @(x == currentPage ? "active" : "")">
+                                <button type="button" class="page-link" @onclick="() => OnPageChanged(x)">@x</button>
+                            </li>
+                        }
+                    }
+                </ul>
+            </nav>
+        </div>
+
+        @if(Role != null)
+        {
+            <div class="col-12 col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" @bind="Role.Name">
+            </div>
+        }
+
+        <div class="col-12 col-md-6">
+            <label for="name" class="form-label">&nbsp;</label>
+            <button type="submit" class="form-control">Submit</button>
+        </div>
+    </div>
+</EditForm>

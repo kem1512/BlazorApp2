@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-BlazorApp1-cf048f7f-b21d-445b-a939-40162f395dd4</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.24" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.23" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+  </ItemGroup>
+
+</Project>
